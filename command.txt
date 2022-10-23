@@ -1,0 +1,100 @@
+workon tkd
+D:\CSE_KOUSHIK\django\thekoushikdurgas\koushik\Scripts\activate 
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+python manage.py createsuperuser
+django-admin startproject projectName
+python manage.py startapp AppName
+makemigrations
+migrate
+runserver
+JngLTPsKctthw
+ssh root@167.71.239.81
+swyGQYh,qN&WQ2c
+sudo apt update
+sudo apt list --upgradable
+sudo ufw app list
+sudo apt install nginx
+sudo ufw app list
+sudo ufw allow 'Nginx Full'
+sudo apt install python3-pip python3-dev nginx
+pip install -r requirements.txt
+pip install djangorestframework
+pip install django-cors-headers
+pip install django-computed-property
+pip install urllib3
+pip install requests
+pip install Pillow
+sudo ufw allow 8000
+source tkd/bin/activate
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver 0.0.0.0:8000
+gunicorn --bind 0.0.0.0:8000 pythonproject.wsgi
+sudo vim /etc/systemd/system/gunicorn.socket
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+sudo vim /etc/systemd/system/gunicorn.service
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/root/projectdir
+ExecStart=/root/projectdir/tkd/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          textutils.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+sudo systemctl start gunicorn.socket
+sudo systemctl enable gunicorn.socket
+sudo vim /etc/nginx/sites-available/pythonproject
+server {
+    listen 80;
+    server_name 167.71.239.81;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /root/projectdir;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+}
+server{
+    server_name 167.71.239.81;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /root/projectdir;
+    }
+    location / {
+        proxy_pass http://0.0.0.0:8000;
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+}
+sudo ln -s /etc/nginx/sites-available/pythonproject /etc/nginx/sites-enabled/
+cd /etc/nginx/sites-available/
+rm default
+https://www.youtube.com/watch?v=rLt_RkSfqDc
+https://www.youtube.com/watch?v=ImtZ5yENzgE
+pip install Django
+pip install requests
+pip install Pillow
+pip freeze > requirements.txt

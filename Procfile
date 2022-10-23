@@ -1,0 +1,1 @@
+web gunicorn tkddjangobackend.wsgi:application --log-file -
